@@ -1,5 +1,5 @@
 {
-  "name": "jogodavelha",
+  "name": "jogo_da_velha_RN",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
