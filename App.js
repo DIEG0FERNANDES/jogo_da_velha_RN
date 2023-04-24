@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+// imporatação dos componentes
+
 export default function App() {
   const [tela, setTela] = useState('menu');
   const [jogadorAtual, setJogadorAtual] = useState('');
