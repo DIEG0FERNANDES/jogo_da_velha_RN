@@ -1,14 +1,12 @@
+import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
-// imporatação dos componentes
-
 export default function App() {
   const [tela, setTela] = useState('menu');
   const [jogadorAtual, setJogadorAtual] = useState('');
-  const [jogadorMaquina, setJogadorMaquina] = useState('');
   const [tabuleiro, setTabuleiro] = useState([]);
   const [jogadasRestantes, setJogadasRestantes] = useState(0);
   const [ganhador, setGanhador] = useState('');
@@ -24,10 +22,12 @@ export default function App() {
     ]);
     setTela('jogo');
   }
+  // Configuração do player contra maquina
   function contraMaquina(jogador) {
     setJogadorAtual(jogador);
     setJogadasRestantes(9);
     setTela('jogador');
+    setTela('nivel');
     setTabuleiro([
       ['', '', ''],
       ['', '', ''],
@@ -41,6 +41,8 @@ export default function App() {
       return getTelaMenu();
     case 'jogo':
       return getTelaJogo();
+    case 'nivel':
+      return getTelaNivel();
     case 'vscpu':
       return getTelaVsCPU();
     case 'ganhador':
@@ -54,40 +56,13 @@ export default function App() {
     setTabuleiro([...tabuleiro]);
 
     setJogadorAtual(jogadorAtual === 'X' ? 'O' : 'X')
-    setJogadorMaquina(jogadorMaquina === 'X' ? 'O' : 'X')
 
     verificarGanhador(tabuleiro, linha, coluna);
 
   }
-  // Verifica se tem vencedor, perdedor ou se empatou
-  function verificarGanhador(tabuleiro, linha, coluna) {
-    // linhas
-    if (tabuleiro[linha][0] !== '' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] === tabuleiro[linha][2]) {
-      return finalizarJogo(tabuleiro[linha][0]);
-    }
-    // coluna
-    if (tabuleiro[0][coluna] !== '' && tabuleiro[0][coluna] === tabuleiro[1][coluna] && tabuleiro[1][coluna] === tabuleiro[2][coluna]) {
-      return finalizarJogo(tabuleiro[0][coluna]);
-    }
-    // diagonal 1
-    if (tabuleiro[0][0] !== '' && tabuleiro[0][0] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][2]) {
-      return finalizarJogo(tabuleiro[0][0]);
-    }
-    // diagonal 2
-    if (tabuleiro[0][2] !== '' && tabuleiro[0][2] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][0]) {
-      return finalizarJogo(tabuleiro[0][2]);
-    }
-    // nenhum ganhador
-    if ((jogadasRestantes - 1) === 0) {
-      return finalizarJogo('');
-    }
-    // jogo não finalizado
-    setJogadasRestantes((jogadasRestantes - 1));
-  }
-  // Caso a função verificadora de ganhador funcione, o jogo deve finalizar e puxar a função de exibir os resultados
-  function finalizarJogo(jogador) {
-    setGanhador(jogador);
-    setTela('ganhador');
+  // Funções para exibir nivel de dificuldade
+  function selecionarNivel() {
+    setTela('jogador');
   }
   // Exibe o menu do Jogo
   function getTelaMenu() {
@@ -105,11 +80,32 @@ export default function App() {
             <Text style={styles.jogadorO}>O</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('jogador')}>
+        <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('nivel')}>
           <Text style={styles.maquina}>VS Computador</Text>
         </TouchableOpacity>
       </View>
     );
+  }
+  // exibi menu de dificuldade do jogo
+  function getTelaNivel() {
+    return (
+      <View style={styles.container}>
+        <StatusBar style='auto' />
+        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('facil')}>
+          <Text style={styles.facil}>Facil</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('normal')}>
+          <Text style={styles.normal}>Normal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('dificil')}>
+          <Text style={styles.dificil}>Dificil</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
+          <Text style={styles.textoBotaoMenu}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+
+    )
   }
   // Exibi menu de escolha de jogador no modo Contra Maquina
   function escolherJogador() {
@@ -126,8 +122,10 @@ export default function App() {
           <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('O')}>
             <Text style={styles.jogadorO}>O</Text>
           </TouchableOpacity>
-
         </View>
+        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('nivel')}>
+          <Text style={styles.textoBotaoMenu}>Voltar</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
           <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
         </TouchableOpacity>
@@ -140,6 +138,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style='auto' />
         <Text style={styles.titulo} >Jogo da Velha</Text>
+        <Text>Vez de: {jogadorAtual}.</Text>
         {
           tabuleiro.map((linha, numeroLinha) => {
             return (
@@ -171,6 +170,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style='auto' />
         <Text style={styles.titulo} >Jogo da Velha</Text>
+        <Text>Vez de: {jogadorAtual}</Text>
         {
           tabuleiro.map((linha, numeroLinha) => {
             return (
@@ -189,10 +189,13 @@ export default function App() {
             )
           })
         }
-
+        <TouchableOpacity style={styles.botaoMenu} onPress={() => contraMaquina(jogadorAtual)}>
+          <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
           <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
         </TouchableOpacity>
+
       </View>
     );
   }
@@ -223,6 +226,36 @@ export default function App() {
         </TouchableOpacity>
       </View>
     );
+  }
+  // Verifica se tem vencedor, perdedor ou se empatou
+  function verificarGanhador(tabuleiro, linha, coluna) {
+    // linhas
+    if (tabuleiro[linha][0] !== '' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] === tabuleiro[linha][2]) {
+      return finalizarJogo(tabuleiro[linha][0]);
+    }
+    // coluna
+    if (tabuleiro[0][coluna] !== '' && tabuleiro[0][coluna] === tabuleiro[1][coluna] && tabuleiro[1][coluna] === tabuleiro[2][coluna]) {
+      return finalizarJogo(tabuleiro[0][coluna]);
+    }
+    // diagonal 1
+    if (tabuleiro[0][0] !== '' && tabuleiro[0][0] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][2]) {
+      return finalizarJogo(tabuleiro[0][0]);
+    }
+    // diagonal 2
+    if (tabuleiro[0][2] !== '' && tabuleiro[0][2] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][0]) {
+      return finalizarJogo(tabuleiro[0][2]);
+    }
+    // nenhum ganhador
+    if ((jogadasRestantes - 1) === 0) {
+      return finalizarJogo('');
+    }
+    // jogo não finalizado
+    setJogadasRestantes((jogadasRestantes - 1));
+  }
+  // Caso a função verificadora de ganhador funcione, o jogo deve finalizar e puxar a função de exibir os resultados
+  function finalizarJogo(jogador) {
+    setGanhador(jogador);
+    setTela('ganhador');
   }
 }
 // css versão escrota
@@ -279,6 +312,18 @@ const styles = StyleSheet.create({
   maquina: {
     fontSize: 18,
     color: '#ff8000'
+  },
+  facil: {
+    fontSize: 18,
+    color: '#16b300'
+  },
+  normal: {
+    fontSize: 18,
+    color: '#ff8000'
+  },
+  dificil: {
+    fontSize: 18,
+    color: '#da3f3f'
   },
   inlineItems: {
     flexDirection: 'row'
