@@ -10,7 +10,7 @@ export default function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [jogadasRestantes, setJogadasRestantes] = useState(0);
   const [ganhador, setGanhador] = useState('');
-  const [nivel, setNivel] = useState("");
+  const [nivel, setNivel] = useState('');
 
   // Configuração do player em cima da matriz"tabuleiro" do jogo
   function iniciarJogo(jogador) {
@@ -69,8 +69,10 @@ export default function App() {
   //   // setModoContraMaquina(false);
   // }
   // Funções para exibir nivel de dificuldade
-  
-  
+  function selecionarNivel(nivel) {
+    setNivel(nivel);
+    setTela('jogador');
+  }
   // Exibe o menu do Jogo
   function getTelaMenu() {
     return (
@@ -180,8 +182,8 @@ export default function App() {
           <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
             <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
-        </View>
-      </ImageBackground>
+        </View >
+      </ImageBackground >
     );
   }
   // Tela de Jogo Contra Maquina
@@ -224,8 +226,8 @@ export default function App() {
             <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
 
-        </View>
-      </ImageBackground>
+        </View >
+      </ImageBackground >
     );
   }
   // Exibe o resultado de quem ganhou o jogo
