@@ -10,6 +10,7 @@ export default function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [jogadasRestantes, setJogadasRestantes] = useState(0);
   const [ganhador, setGanhador] = useState('');
+  const [nivel, setNivel] = useState('');
 
   // Configuração do player em cima da matriz"tabuleiro" do jogo
   function iniciarJogo(jogador) {
@@ -68,16 +69,17 @@ export default function App() {
   //   // setModoContraMaquina(false);
   // }
   // Funções para exibir nivel de dificuldade
-  function selecionarNivel() {
+  function selecionarNivel(nivel) {
+    setNivel(nivel);
     setTela('jogador');
   }
   // Exibe o menu do Jogo
   function getTelaMenu() {
     return (
-      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
         <View style={styles.container}>
           <StatusBar style='auto' />
-          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
           <Text style={styles.subtitulo}>selecione seu jogador</Text>
 
           <View style={styles.inlineItems}>
@@ -97,10 +99,10 @@ export default function App() {
   }
   // exibi menu de dificuldade do jogo
   function getTelaNivel() {
-    return (<ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+    return (<ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
       <View style={styles.container}>
         <StatusBar style='auto' />
-        <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+        <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
         <Text style={styles.subtitulo}>selecione o modo de jogo</Text>
         <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('facil')}>
           <Text style={styles.facil}>Facil</Text>
@@ -121,10 +123,10 @@ export default function App() {
   // Exibi menu de escolha de jogador no modo Contra Maquina
   function escolherJogador() {
     return (
-      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
         <View style={styles.container}>
           <StatusBar style='auto' />
-          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
           <Text style={styles.subtitulo}>selecione seu jogador</Text>
 
           <View style={styles.inlineItems}>
@@ -148,11 +150,11 @@ export default function App() {
   // Tela de jogo Contra Player
   function getTelaJogo() {
     return (
-      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
         <View style={styles.container}>
           <StatusBar style='auto' />
 
-          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
           <Text style={styles.subtitulo}>Vez de: {jogadorAtual}.</Text>
           {
             tabuleiro.map((linha, numeroLinha) => {
@@ -183,15 +185,15 @@ export default function App() {
   // Tela de Jogo Contra Maquina
   function getTelaVsCPU() {
     return (
-      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
         <View style={styles.container}>
           <StatusBar style='auto' />
-          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
           <Text>Vez de: {jogadorAtual}</Text>
           <View style={styles.inlineItems}>
             <Text>Modo: { }</Text>
             <TouchableOpacity onPress={() => setTela('nivel')}>
-              <Text style={styles.textoBotaoMenu}>selecionar modo</Text>
+              <Text style={styles.textoBotaoMenu}>{nivel}</Text>
             </TouchableOpacity>
           </View>
 
@@ -228,10 +230,10 @@ export default function App() {
   // Exibe o resultado de quem ganhou o jogo
   function getTelaGanhador() {
     return (
-      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
         <View style={styles.container}>
           <StatusBar style='auto' />
-          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
           <Text style={styles.subtituloFinal}>Resultado Final:</Text>
 
           {
