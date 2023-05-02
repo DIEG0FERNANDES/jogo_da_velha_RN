@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 export default function App() {
@@ -60,6 +60,13 @@ export default function App() {
     verificarGanhador(tabuleiro, linha, coluna);
 
   }
+  // function reiniciar() {
+  //   setTabuleiro(Array(9).fill(null));
+  //   // setJogadorAtual(jogadorAtual==='X');
+  //   // setVencedor(null);
+  //   // setEmpate(false);
+  //   // setModoContraMaquina(false);
+  // }
   // Funções para exibir nivel de dificuldade
   function selecionarNivel() {
     setTela('jogador');
@@ -67,30 +74,34 @@ export default function App() {
   // Exibe o menu do Jogo
   function getTelaMenu() {
     return (
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        <Text style={styles.titulo}>Jogo da Velha</Text>
-        <Text style={styles.subtitulo}>selecione seu jogador</Text>
+      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
+          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Text style={styles.subtitulo}>selecione seu jogador</Text>
 
-        <View style={styles.inlineItems}>
-          <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('X')}>
-            <Text style={styles.jogadorX}>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('O')}>
-            <Text style={styles.jogadorO}>O</Text>
+          <View style={styles.inlineItems}>
+            <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('X')}>
+              <Text style={styles.jogadorX}>X</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('O')}>
+              <Text style={styles.jogadorO}>O</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('nivel')}>
+            <Text style={styles.maquina}>VS Computador</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('nivel')}>
-          <Text style={styles.maquina}>VS Computador</Text>
-        </TouchableOpacity>
-      </View>
+      </ImageBackground>
     );
   }
   // exibi menu de dificuldade do jogo
   function getTelaNivel() {
-    return (
+    return (<ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
       <View style={styles.container}>
         <StatusBar style='auto' />
+        <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+        <Text style={styles.subtitulo}>selecione o modo de jogo</Text>
         <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('facil')}>
           <Text style={styles.facil}>Facil</Text>
         </TouchableOpacity>
@@ -104,127 +115,144 @@ export default function App() {
           <Text style={styles.textoBotaoMenu}>Voltar</Text>
         </TouchableOpacity>
       </View>
-
+    </ImageBackground>
     )
   }
   // Exibi menu de escolha de jogador no modo Contra Maquina
   function escolherJogador() {
     return (
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        <Text style={styles.titulo}>Jogo da Velha</Text>
-        <Text style={styles.subtitulo}>selecione seu jogador</Text>
+      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
+          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Text style={styles.subtitulo}>selecione seu jogador</Text>
 
-        <View style={styles.inlineItems}>
-          <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('X')}>
-            <Text style={styles.jogadorX}>X</Text>
+          <View style={styles.inlineItems}>
+            <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('X')}>
+              <Text style={styles.jogadorX}>X</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('O')}>
+              <Text style={styles.jogadorO}>O</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('nivel')}>
+            <Text style={styles.textoBotaoMenu}>Voltar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('O')}>
-            <Text style={styles.jogadorO}>O</Text>
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('nivel')}>
-          <Text style={styles.textoBotaoMenu}>Voltar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-          <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
-        </TouchableOpacity>
-      </View>
+      </ImageBackground>
     );
   }
   // Tela de jogo Contra Player
   function getTelaJogo() {
     return (
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        <Text style={styles.titulo} >Jogo da Velha</Text>
-        <Text>Vez de: {jogadorAtual}.</Text>
-        {
-          tabuleiro.map((linha, numeroLinha) => {
-            return (
-              <View key={numeroLinha} style={styles.inlineItems}>
-                {
-                  linha.map((coluna, numeroColuna) => {
-                    return (
-                      <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
-                        onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
-                        <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
-                      </TouchableOpacity>
-                    )
-                  })
-                }
-              </View>
-            )
-          })
-        }
+      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
 
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-          <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
-        </TouchableOpacity>
-      </View>
+          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Text style={styles.subtitulo}>Vez de: {jogadorAtual}.</Text>
+          {
+            tabuleiro.map((linha, numeroLinha) => {
+              return (
+                <View key={numeroLinha} style={styles.inlineItems}>
+                  {
+                    linha.map((coluna, numeroColuna) => {
+                      return (
+                        <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
+                          onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
+                          <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
+                        </TouchableOpacity>
+                      )
+                    })
+                  }
+                </View>
+              )
+            })
+          }
+
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   }
   // Tela de Jogo Contra Maquina
   function getTelaVsCPU() {
     return (
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        <Text style={styles.titulo} >Jogo da Velha</Text>
-        <Text>Vez de: {jogadorAtual}</Text>
-        {
-          tabuleiro.map((linha, numeroLinha) => {
-            return (
-              <View key={numeroLinha} style={styles.inlineItems}>
-                {
-                  linha.map((coluna, numeroColuna) => {
-                    return (
-                      <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
-                        onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
-                        <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
-                      </TouchableOpacity>
-                    )
-                  })
-                }
-              </View>
-            )
-          })
-        }
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => contraMaquina(jogadorAtual === 'X' ? jogadorAtual : 'O')}>
-          <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-          <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
-        </TouchableOpacity>
+      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
+          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Text>Vez de: {jogadorAtual}</Text>
+          <View style={styles.inlineItems}>
+            <Text>Modo: { }</Text>
+            <TouchableOpacity onPress={() => setTela('nivel')}>
+              <Text style={styles.textoBotaoMenu}>selecionar modo</Text>
+            </TouchableOpacity>
+          </View>
 
-      </View>
+          {
+            tabuleiro.map((linha, numeroLinha) => {
+              return (
+                <View key={numeroLinha} style={styles.inlineItems}>
+                  {
+                    linha.map((coluna, numeroColuna) => {
+                      return (
+                        <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
+                          onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
+                          <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
+                        </TouchableOpacity>
+                      )
+                    })
+                  }
+                </View>
+              )
+            })
+          }
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => iniciarJogo('')}>
+            <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ImageBackground>
     );
   }
   // Exibe o resultado de quem ganhou o jogo
   function getTelaGanhador() {
     return (
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        <Text style={styles.titulo}>Jogo da Velha</Text>
-        <Text style={styles.subtituloFinal}>Resultado Final:</Text>
+      <ImageBackground source={require('./assets/image-background.png')} style={styles.imageBackground}>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
+          <Image source={require('./assets/image-text.png')} style={styles.titulo} />
+          <Text style={styles.subtituloFinal}>Resultado Final:</Text>
 
-        {
-          ganhador === '' &&
-          <Text style={styles.ganhador}>Empatou</Text>
-        }
-        {
-          ganhador !== '' &&
-          <>
-            <View style={styles.boxJogador}>
-              <Text style={ganhador === 'X' ? styles.jogadorX : styles.jogadorO}>{ganhador}</Text>
-            </View>
-            <Text style={styles.ganhador}>GANHOU</Text>
-          </>
-        }
+          {
+            ganhador === '' &&
+            <Text style={styles.ganhador}>Empatou</Text>
+          }
+          {
+            ganhador !== '' &&
+            <>
+              <View style={styles.boxJogador}>
+                <Text style={ganhador === 'X' ? styles.jogadorX : styles.jogadorO}>{ganhador}</Text>
+              </View>
+              <Text style={styles.ganhador}>GANHOU</Text>
+            </>
+          }
 
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-          <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   }
   // Verifica se tem vencedor, perdedor ou se empatou
@@ -262,21 +290,21 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   titulo: {
-    textAlign: 'center',
-    fontSize: 40,
-    fontWeight: 'bold',
+    alignItems: "center",
+    width: 380,
+    height: 60,
+    resizeMode: "cover",
   },
   subtitulo: {
     marginTop: 4,
     paddingVertical: 2,
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'rgb(100,100,100)',
+    color: 'white',
   },
   subtituloFinal: {
     marginTop: 4,
@@ -329,14 +357,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   botaoMenu: {
-    marginTop: 20
+    marginTop: 10
   },
   textoBotaoMenu: {
-    color: '#4e6fe4'
+    color: 'white',
+    fontSize: 15,
   },
   ganhador: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333'
+  },
+  imageBackground: {
+    backgroundColor: "#d6bffb",
+    flex: 2,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center"
   },
 });
