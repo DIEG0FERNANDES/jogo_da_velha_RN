@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   titulo: {
     alignItems: "center",
     width: 380,
-    height: 60,
+    height: 62,
     resizeMode: "cover",
   },
   subtitulo: {
