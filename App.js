@@ -189,7 +189,7 @@ export default function App() {
             )
           })
         }
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => contraMaquina(jogadorAtual)}>
+        <TouchableOpacity style={styles.botaoMenu} onPress={() => contraMaquina(jogadorAtual === 'X' ? jogadorAtual : 'O')}>
           <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
