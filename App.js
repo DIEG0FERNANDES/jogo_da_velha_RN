@@ -4,6 +4,13 @@ import { useState } from 'react';
 import { ImageBackground, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+// import {
+//   criarTubuleiro
+// } from './src/logica';
+
+import Estilo from './src/components/estilos'
+
+
 export default function App() {
   const [tela, setTela] = useState('menu');
   const [jogadorAtual, setJogadorAtual] = useState('');
@@ -53,7 +60,7 @@ export default function App() {
   };
   // Exibi o tabuleiro do jogo com suas peças
   function jogar(linha, coluna) {
-    tabuleiro[coluna][coluna] = jogadorAtual;
+    tabuleiro[linha][coluna] = jogadorAtual;
     setTabuleiro([...tabuleiro]);
 
     setJogadorAtual(jogadorAtual === 'X' ? 'O' : 'X')
@@ -68,23 +75,23 @@ export default function App() {
   // Exibe o menu do Jogo
   function getTelaMenu() {
     return (
-      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-        <View style={styles.container}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+        <View style={Estilo.container}>
           <StatusBar style='auto' />
-          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-          <Text style={styles.subtitulo}>selecione seu jogador</Text>
+          <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+          <Text style={Estilo.subtitulo}>selecione seu jogador</Text>
 
-          <View style={styles.inlineItems}>
-            <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('X')}>
-              <Text style={styles.jogadorX}>X</Text>
+          <View style={Estilo.inlineItems}>
+            <TouchableOpacity style={Estilo.boxJogador} onPress={() => iniciarJogo('X')}>
+              <Text style={Estilo.jogadorX}>X</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.boxJogador} onPress={() => iniciarJogo('O')}>
-              <Text style={styles.jogadorO}>O</Text>
+            <TouchableOpacity style={Estilo.boxJogador} onPress={() => iniciarJogo('O')}>
+              <Text style={Estilo.jogadorO}>O</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('nivel')}>
-            <Image source={require('./src/assets/image-computador.png')} style={styles.maquina} />
-            {/* <Text style={styles.maquina}>VS Computador</Text>image-computador.png */}
+          <TouchableOpacity style={Estilo.boxMaquina} onPress={() => setTela('nivel')}>
+            <Image source={require('./src/assets/image-computador.png')} style={Estilo.maquina} />
+            {/* <Text style={Estilo.maquina}>VS Computador</Text>image-computador.png */}
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -92,22 +99,22 @@ export default function App() {
   }
   // exibi menu de dificuldade do jogo
   function getTelaNivel() {
-    return (<ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-      <View style={styles.container}>
+    return (<ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+      <View style={Estilo.container}>
         <StatusBar style='auto' />
-        <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-        <Text style={styles.subtitulo}>selecione o modo de jogo</Text>
-        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('Facíl')}>
-          <Text style={styles.facil}>Facil</Text>
+        <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+        <Text style={Estilo.subtitulo}>selecione o modo de jogo</Text>
+        <TouchableOpacity style={Estilo.boxMaquina} onPress={() => selecionarNivel('Facíl')}>
+          <Text style={Estilo.facil}>Facil</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('Normal')}>
-          <Text style={styles.normal}>Normal</Text>
+        <TouchableOpacity style={Estilo.boxMaquina} onPress={() => selecionarNivel('Normal')}>
+          <Text style={Estilo.normal}>Normal</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.boxMaquina} onPress={() => selecionarNivel('Difícil')}>
-          <Text style={styles.dificil}>Dificil</Text>
+        <TouchableOpacity style={Estilo.boxMaquina} onPress={() => selecionarNivel('Difícil')}>
+          <Text style={Estilo.dificil}>Dificil</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-          <Text style={styles.textoBotaoMenu}>Voltar</Text>
+        <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('menu')}>
+          <Text style={Estilo.textoBotaoMenu}>Voltar</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -120,25 +127,25 @@ export default function App() {
   // Exibi menu de escolha de jogador no modo Contra Maquina
   function escolherJogador() {
     return (
-      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-        <View style={styles.container}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+        <View style={Estilo.container}>
           <StatusBar style='auto' />
-          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-          <Text style={styles.subtitulo}>selecione seu jogador</Text>
+          <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+          <Text style={Estilo.subtitulo}>selecione seu jogador</Text>
 
-          <View style={styles.inlineItems}>
-            <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('X')}>
-              <Text style={styles.jogadorX}>X</Text>
+          <View style={Estilo.inlineItems}>
+            <TouchableOpacity style={Estilo.boxJogador} onPress={() => contraMaquina('X')}>
+              <Text style={Estilo.jogadorX}>X</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.boxJogador} onPress={() => contraMaquina('O')}>
-              <Text style={styles.jogadorO}>O</Text>
+            <TouchableOpacity style={Estilo.boxJogador} onPress={() => contraMaquina('O')}>
+              <Text style={Estilo.jogadorO}>O</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('nivel')}>
-            <Text style={styles.textoBotaoMenu}>Voltar</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('nivel')}>
+            <Text style={Estilo.textoBotaoMenu}>Voltar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={Estilo.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -147,22 +154,22 @@ export default function App() {
   // Tela de jogo Contra Player
   function getTelaJogo() {
     return (
-      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-        <View style={styles.container}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+        <View style={Estilo.container}>
           <StatusBar style='auto' />
 
-          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-          <Text style={styles.vezmodo}>Vez de: {jogadorAtual}.</Text>
+          <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+          <Text style={Estilo.vezmodo}>Vez de: {jogadorAtual}.</Text>
           {
             tabuleiro.map((linha, numeroLinha) => {
               return (
-                <View key={numeroLinha} style={styles.inlineItems}>
+                <View key={numeroLinha} style={Estilo.inlineItems}>
                   {
                     linha.map((coluna, numeroColuna) => {
                       return (
-                        <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
+                        <TouchableOpacity key={numeroColuna} style={Estilo.boxJogador}
                           onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
-                          <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
+                          <Text style={coluna === 'X' ? Estilo.jogadorX : Estilo.jogadorO}>{coluna}</Text>
                         </TouchableOpacity>
                       )
                     })
@@ -172,8 +179,8 @@ export default function App() {
             })
           }
 
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={Estilo.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
         </View >
       </ImageBackground >
@@ -182,27 +189,27 @@ export default function App() {
   // Tela de Jogo Contra Maquina
   function getTelaVsCPU() {
     return (
-      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-        <View style={styles.container}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+        <View style={Estilo.container}>
           <StatusBar style='auto' />
-          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-          <Text style={styles.vezmodo}>Vez de: {jogadorAtual}</Text>
-          <View style={styles.inlineItems}>
+          <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+          <Text style={Estilo.vezmodo}>Vez de: {jogadorAtual}</Text>
+          <View style={Estilo.inlineItems}>
             <TouchableOpacity onPress={() => setTela('nivel')}>
-              <Text style={styles.textoBotaoMenu}>selecione o modo: {nivel}</Text>
+              <Text style={Estilo.textoBotaoMenu}>selecione o modo: {nivel}</Text>
             </TouchableOpacity>
           </View>
 
           {
             tabuleiro.map((linha, numeroLinha) => {
               return (
-                <View key={numeroLinha} style={styles.inlineItems}>
+                <View key={numeroLinha} style={Estilo.inlineItems}>
                   {
                     linha.map((coluna, numeroColuna) => {
                       return (
-                        <TouchableOpacity key={numeroColuna} style={styles.boxJogador}
+                        <TouchableOpacity key={numeroColuna} style={Estilo.boxJogador}
                           onPress={() => jogar(numeroLinha, numeroColuna)} disabled={coluna !== ''}>
-                          <Text style={coluna === 'X' ? styles.jogadorX : styles.jogadorO}>{coluna}</Text>
+                          <Text style={coluna === 'X' ? Estilo.jogadorX : Estilo.jogadorO}>{coluna}</Text>
                         </TouchableOpacity>
                       )
                     })
@@ -211,12 +218,12 @@ export default function App() {
               )
             })
           }
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => reiniciar(jogadorAtual)}>
-            <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => reiniciar(jogadorAtual)}>
+            <Text style={Estilo.textoBotaoMenu}>Reiniciar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={Estilo.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
 
         </View >
@@ -226,28 +233,28 @@ export default function App() {
   // Exibe o resultado de quem ganhou o jogo
   function getTelaGanhador() {
     return (
-      <ImageBackground source={require('./src/assets/image-background.png')} style={styles.imageBackground}>
-        <View style={styles.container}>
+      <ImageBackground source={require('./src/assets/image-background.png')} style={Estilo.imageBackground}>
+        <View style={Estilo.container}>
           <StatusBar style='auto' />
-          <Image source={require('./src/assets/image-text.png')} style={styles.titulo} />
-          <Text style={styles.subtituloFinal}>Resultado Final:</Text>
+          <Image source={require('./src/assets/image-text.png')} style={Estilo.titulo} />
+          <Text style={Estilo.subtituloFinal}>Resultado Final:</Text>
 
           {
             ganhador === '' &&
-            <Text style={styles.ganhador}>Empatou</Text>
+            <Text style={Estilo.ganhador}>Empatou</Text>
           }
           {
             ganhador !== '' &&
             <>
-              <View style={styles.boxJogador}>
-                <Text style={ganhador === 'X' ? styles.jogadorX : styles.jogadorO}>{ganhador}</Text>
+              <View style={Estilo.boxJogador}>
+                <Text style={ganhador === 'X' ? Estilo.jogadorX : Estilo.jogadorO}>{ganhador}</Text>
               </View>
-              <Text style={styles.ganhador}>GANHOU</Text>
+              <Text style={Estilo.ganhador}>GANHOU</Text>
             </>
           }
 
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => setTela('menu')}>
-            <Text style={styles.textoBotaoMenu}>Voltar ao Menu</Text>
+          <TouchableOpacity style={Estilo.botaoMenu} onPress={() => setTela('menu')}>
+            <Text style={Estilo.textoBotaoMenu}>Voltar ao Menu</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -284,100 +291,3 @@ export default function App() {
     setTela('ganhador');
   }
 }
-// css versão escrota
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titulo: {
-    alignItems: "center",
-    width: 380,
-    height: 62,
-    resizeMode: "cover",
-  },
-  subtitulo: {
-    marginTop: 4,
-    paddingVertical: 2,
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  subtituloFinal: {
-    marginTop: 4,
-    paddingVertical: 2,
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  vezmodo: {
-    color: 'white',
-  },
-  boxJogador: {
-    width: 80,
-    height: 80,
-    backgroundColor: "#ddd",
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-  },
-  boxMaquina: {
-    width: 170,
-    height: 80,
-    backgroundColor: "#ddd",
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5
-  },
-  jogadorX: {
-    // width: 80,
-    // height: 80,
-    // alignItems: 'center',
-    fontSize: 40,
-    color: '#553fda'
-  },
-  jogadorO: {
-    fontSize: 40,
-    color: '#da3f3f'
-  },
-  maquina: {
-    alignItems: "center",
-    width: 170,
-  },
-  facil: {
-    fontSize: 18,
-    color: '#16b300'
-  },
-  normal: {
-    fontSize: 18,
-    color: '#ff8000'
-  },
-  dificil: {
-    fontSize: 18,
-    color: '#da3f3f'
-  },
-  inlineItems: {
-    flexDirection: 'row'
-  },
-  botaoMenu: {
-    marginTop: 10
-  },
-  textoBotaoMenu: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  ganhador: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  imageBackground: {
-    backgroundColor: "#222034",
-    flex: 2,
-    resizeMode: "cover",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-});
