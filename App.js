@@ -53,21 +53,13 @@ export default function App() {
   };
   // Exibi o tabuleiro do jogo com suas peças
   function jogar(linha, coluna) {
-    tabuleiro[linha][coluna] = jogadorAtual;
+    tabuleiro[coluna][coluna] = jogadorAtual;
     setTabuleiro([...tabuleiro]);
 
     setJogadorAtual(jogadorAtual === 'X' ? 'O' : 'X')
 
-    verificarGanhador(tabuleiro, linha, coluna);
-
+    verificarGanhador(tabuleiro, linha,coluna);
   }
-  // function reiniciar() {
-  //   setTabuleiro(Array(9).fill(null));
-  //   // setJogadorAtual(jogadorAtual==='X');
-  //   // setVencedor(null);
-  //   // setEmpate(false);
-  //   // setModoContraMaquina(false);
-  // }
   // Funções para exibir nivel de dificuldade
   function selecionarNivel(nivel) {
     setNivel(nivel);
@@ -91,7 +83,8 @@ export default function App() {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.boxMaquina} onPress={() => setTela('nivel')}>
-            <Text style={styles.maquina}>VS Computador</Text>
+            <Image source={require('./src/assets/image-computador.png')} style={styles.maquina} />
+            {/* <Text style={styles.maquina}>VS Computador</Text>image-computador.png */}
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -218,7 +211,7 @@ export default function App() {
               )
             })
           }
-          <TouchableOpacity style={styles.botaoMenu} onPress={() => iniciarJogo('')}>
+          <TouchableOpacity style={styles.botaoMenu} onPress={() => reiniciar(jogadorAtual)}>
             <Text style={styles.textoBotaoMenu}>Reiniciar</Text>
           </TouchableOpacity>
 
@@ -316,7 +309,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     fontSize: 25,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   vezmodo: {
     color: 'white',
@@ -327,7 +320,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5
+    margin: 5,
   },
   boxMaquina: {
     width: 170,
@@ -338,6 +331,9 @@ const styles = StyleSheet.create({
     margin: 5
   },
   jogadorX: {
+    // width: 80,
+    // height: 80,
+    // alignItems: 'center',
     fontSize: 40,
     color: '#553fda'
   },
@@ -346,8 +342,8 @@ const styles = StyleSheet.create({
     color: '#da3f3f'
   },
   maquina: {
-    fontSize: 18,
-    color: '#ff8000'
+    alignItems: "center",
+    width: 170,
   },
   facil: {
     fontSize: 18,
@@ -370,11 +366,12 @@ const styles = StyleSheet.create({
   textoBotaoMenu: {
     color: 'white',
     fontSize: 15,
+    fontWeight: 'bold',
   },
   ganhador: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333'
+    color: 'white'
   },
   imageBackground: {
     backgroundColor: "#222034",
