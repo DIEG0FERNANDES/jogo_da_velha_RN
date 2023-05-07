@@ -4,10 +4,6 @@ import { useState } from 'react';
 import { ImageBackground, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
-// import {
-//   criarTubuleiro
-// } from './src/logica';
-
 import Estilo from './src/components/estilos'
 
 
