@@ -61,7 +61,7 @@ export default function App() {
 
     setJogadorAtual(jogadorAtual === 'X' ? 'O' : 'X')
 
-    verificarGanhador(tabuleiro, linha,coluna);
+    verificarGanhador(tabuleiro, linha, coluna);
   }
   // Funções para exibir nivel de dificuldade
   function selecionarNivel(nivel) {
@@ -85,9 +85,10 @@ export default function App() {
               <Text style={Estilo.jogadorO}>O</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={Estilo.boxMaquina} onPress={() => setTela('nivel')}>
+          {/* infelizmente o raciocibio lógico não está em dia e não foi possivel concluir com o desenvolvimento desta opção */}
+          {/* <TouchableOpacity style={Estilo.boxMaquina} onPress={() => setTela('nivel')}>
             <Image source={require('./src/assets/image-computador.png')} style={Estilo.maquina} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ImageBackground>
     );
@@ -258,7 +259,7 @@ export default function App() {
   // Verifica se tem vencedor, perdedor ou se empatou
   function verificarGanhador(tabuleiro, linha, coluna) {
     // linhas
-    if (tabuleiro[linha][0] !== '' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] === tabuleiro[linha][2]) {
+    if (tabuleiro[linha][0] !== '' && tabuleiro[linha][0] === tabuleiro[linha][1] && tabuleiro[linha][1] === tabuleiro[linha][2]) {
       return finalizarJogo(tabuleiro[linha][0]);
     }
     // coluna
