@@ -1,28 +1,8 @@
-// import { View, StyleSheet, Image } from 'react-native';
+import { Text } from 'react-native';
+import Estilo from '../estilos';
 
-// export default () => {
-//   return (
+const PlayerX = () => {
+    <Text style={Estilo.jogadorX}>X</Text>
+};
 
-//     <View style={estilos.container}>
-//     {/* <TouchableOpacity style={Estilo.boxJogador} onPress={() => iniciarJogo('X')}>
-//               <Text style={Estilo.jogadorX}>X</Text>
-//             </TouchableOpacity> */}
-//       <Image
-//         style={Estilo.jogadorX}
-//         source={require('../../assets/image-X.png')}
-//       />
-//     </View>
-//   );
-// };
-
-
-// const estilos = StyleSheet.create({
-//   container:{
-//     alignItems: 'center',
-//     justifyContent: 'center'
-//   },
-//   mina: {
-//     height: 18,
-//     width: 18 
-//   }
-// })
+export default PlayerX;
