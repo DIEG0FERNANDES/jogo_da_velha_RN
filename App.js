@@ -87,7 +87,6 @@ export default function App() {
           </View>
           <TouchableOpacity style={Estilo.boxMaquina} onPress={() => setTela('nivel')}>
             <Image source={require('./src/assets/image-computador.png')} style={Estilo.maquina} />
-            {/* <Text style={Estilo.maquina}>VS Computador</Text>image-computador.png */}
           </TouchableOpacity>
         </View>
       </ImageBackground>

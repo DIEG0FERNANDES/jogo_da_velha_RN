@@ -19,5 +19,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "repository": "https://github.com/DIEG0FERNANDES/jogo_da_velha_RN.git",
+  "author": "Diego_dos_Santos_Fernandes <cookieezito@hotmail.com>",
+  "license": "MIT"
 }
